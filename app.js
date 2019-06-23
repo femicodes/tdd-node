@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+process.env.JWT_KEY = "thisIsMyJwtKeyUsedToEncodeTheTokens";
+
 const bodyParser = require('body-parser');
 const routes = require('./api/routes');
 

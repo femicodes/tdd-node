@@ -10,7 +10,6 @@ describe('App basic tests', () => {
     it('Should exists', () => {
         expect(app).to.be.a('function');
     });
-
     it('GET / should return 200 and a message', (done) => {
 
         chai.request(app).get('/').then(res => {
@@ -22,8 +21,6 @@ describe('App basic tests', () => {
         }).catch(err => {
             console.log(err);
         });
-
-
     });
 });
 
@@ -45,5 +42,27 @@ describe('User registration', () => {
             }).catch(err => {
                 console.log(err.message);
             });
+    });
+});
+
+describe('User login', () => {
+    it('should return 200 and token for valid credentials', (done) => {
+        //mock invalid user input
+        const validInput = {
+            "email": "john@wick.com",
+            "password": "secret"
+        }
+        //send request to the app
+        chai.request(app).post('/login')
+            .send(validInput)
+            .then((res) => {
+                expect(res).to.have.status(200);
+                expect(res.body.token).to.exist;
+                expect(res.body.message).to.be.equal("Auth OK");
+                expect(res.body.errors.length).to.be.equal(0);
+                done();
+            }).catch(err => {
+                console.log(err.message);
+            })
     });
 });
