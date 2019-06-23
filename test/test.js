@@ -1,27 +1,29 @@
-let chai = require('chai');
+const chai = require('chai');
 const expect = chai.expect;
+
+const app = require('../app')
+
 const http = require('chai-http');
 chai.use(http);
 
-const app = require('../app');
-
-
-describe('App', () => {
-
-    it('Should exist', () => {
+describe('App basic tests', () => {
+    it('Should exists', () => {
         expect(app).to.be.a('function');
-    });
+    })
 
-    it('GET / should return 200 and message', (done) => {
-        //send a request to the app
-        chai.request(app).get('/')
-            .then((res) => {
-                expect(res).to.have.status(200);
-                expect(res.body.message).to.contain('Yeezys');
-                done();
-            }).catch(err => {
-                console.log(err.message);
-            });
-    });
+    it('GET / should return 200 and a message', (done) => {
 
-});
+        chai.request(app).get('/').then(res => {
+
+            expect(res).to.have.status(200);
+            expect(res.body.message).to.be.equal('Yeezys')
+
+            done();
+        }).catch(err => {
+            console.log(err);
+        });
+
+
+    })
+})
+
