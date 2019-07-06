@@ -15,7 +15,7 @@ describe('App basic tests', () => {
         chai.request(app).get('/').then(res => {
 
             expect(res).to.have.status(200);
-            expect(res.body.message).to.be.equal('Yeezys');
+            expect(res.body.message).to.be.equal('Yeezy 350 boost');
 
             done();
         }).catch(err => {
