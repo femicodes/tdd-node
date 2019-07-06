@@ -11,7 +11,7 @@ app.use(routes);
 
 app.get('/', (req, res) => {
     res.send({
-        message: 'Yeezys'
+        message: 'Yeezy 350 boost'
     })
 })
 
