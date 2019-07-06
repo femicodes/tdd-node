@@ -1,9 +1,23 @@
 language: node_js
 node_js:
-  - "stable"
+  - node
 cache:
   directories:
     - "node_modules"
+addons:
+  chrome: stable
 env:
   global:
     - CC_TEST_REPORTER_ID=7556f0be30da394eb428dde0a3bb3a53443ff3c6a5ea690513b63657d4dd9455
+before_script:
+  - yarn global add nyc
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - nyc --reporter=lcov yarn run unit
+
+after_script:
+  - npm run coverage
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
